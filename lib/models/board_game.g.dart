@@ -1403,19 +1403,24 @@ const PlayerSessionSchema = Schema(
       name: r'playerColorValue',
       type: IsarType.long,
     ),
-    r'playerName': PropertySchema(
+    r'playerId': PropertySchema(
       id: 1,
+      name: r'playerId',
+      type: IsarType.long,
+    ),
+    r'playerName': PropertySchema(
+      id: 2,
       name: r'playerName',
       type: IsarType.string,
     ),
     r'scores': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'scores',
       type: IsarType.objectList,
       target: r'ScoreEntry',
     ),
     r'totalScore': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'totalScore',
       type: IsarType.long,
     )
@@ -1456,14 +1461,15 @@ void _playerSessionSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeLong(offsets[0], object.playerColorValue);
-  writer.writeString(offsets[1], object.playerName);
+  writer.writeLong(offsets[1], object.playerId);
+  writer.writeString(offsets[2], object.playerName);
   writer.writeObjectList<ScoreEntry>(
-    offsets[2],
+    offsets[3],
     allOffsets,
     ScoreEntrySchema.serialize,
     object.scores,
   );
-  writer.writeLong(offsets[3], object.totalScore);
+  writer.writeLong(offsets[4], object.totalScore);
 }
 
 PlayerSession _playerSessionDeserialize(
@@ -1474,9 +1480,10 @@ PlayerSession _playerSessionDeserialize(
 ) {
   final object = PlayerSession();
   object.playerColorValue = reader.readLongOrNull(offsets[0]);
-  object.playerName = reader.readStringOrNull(offsets[1]);
+  object.playerId = reader.readLongOrNull(offsets[1]);
+  object.playerName = reader.readStringOrNull(offsets[2]);
   object.scores = reader.readObjectList<ScoreEntry>(
-        offsets[2],
+        offsets[3],
         ScoreEntrySchema.deserialize,
         allOffsets,
         ScoreEntry(),
@@ -1495,8 +1502,10 @@ P _playerSessionDeserializeProp<P>(
     case 0:
       return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 2:
+      return (reader.readStringOrNull(offset)) as P;
+    case 3:
       return (reader.readObjectList<ScoreEntry>(
             offset,
             ScoreEntrySchema.deserialize,
@@ -1504,7 +1513,7 @@ P _playerSessionDeserializeProp<P>(
             ScoreEntry(),
           ) ??
           []) as P;
-    case 3:
+    case 4:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1579,6 +1588,80 @@ extension PlayerSessionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'playerColorValue',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playerIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'playerId',
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playerIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'playerId',
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playerIdEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'playerId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playerIdGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'playerId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playerIdLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'playerId',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playerIdBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'playerId',
         lower: lower,
         includeLower: includeLower,
         upper: upper,

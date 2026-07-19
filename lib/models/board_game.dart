@@ -28,6 +28,9 @@ class MatchSession {
 class PlayerSession {
   String? playerName;
 
+  // links to the Player.id of the PlayerSchema
+  int? playerId; 
+
   // Store a specific player's color for this session
   int? playerColorValue;
 

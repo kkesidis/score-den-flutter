@@ -8,6 +8,7 @@ import 'theme/app_theme.dart';
 import 'models/settings.dart';
 import 'l10n/app_localizations.dart';
 import 'screens/game_list_screen.dart';
+import 'models/player.dart';
 
 final ValueNotifier<String> appLanguageNotifier = ValueNotifier('en');
 final ValueNotifier<bool> darkThemeNotifier = ValueNotifier(false);
@@ -21,7 +22,7 @@ void main() async {
   final dir = await getApplicationDocumentsDirectory();
 
   // 3. Open the database instance with our specific BoardGame collection schema
-  isar = await Isar.open([BoardGameSchema, AppSettingsSchema], directory: dir.path);
+  isar = await Isar.open([BoardGameSchema, AppSettingsSchema, PlayerSchema], directory: dir.path);
 
   final savedSettings = await isar.appSettings.where().findFirst();
 
