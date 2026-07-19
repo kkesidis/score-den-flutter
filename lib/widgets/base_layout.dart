@@ -28,7 +28,8 @@ class BaseLayout extends StatelessWidget {
           spacing: 2.0,
           children: [
             title,
-            ?subtitle,
+            // ignore: use_null_aware_elements
+            if (subtitle != null) subtitle!,
           ],
         ),
         actions: [
