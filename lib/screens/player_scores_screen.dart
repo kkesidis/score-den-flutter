@@ -68,7 +68,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.7, // 70% of screen height
+        maxHeight: MediaQuery.of(context).size.height * 0.8, // 70% of screen height
       ),
       builder: (context) {
         return StatefulBuilder(
