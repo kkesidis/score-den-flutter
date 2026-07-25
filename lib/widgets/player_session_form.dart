@@ -60,33 +60,41 @@ class _PlayerSessionFormState extends State<PlayerSessionForm> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            isEditing ? l10n.renamePlayer : l10n.addPlayer,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  isEditing ? l10n.renamePlayer : l10n.addPlayer,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 16),
 
-          TextField(
-            controller: nameController,
-            autofocus: true,
-            textCapitalization: TextCapitalization.sentences,
-            decoration: InputDecoration(
-              labelText: l10n.playerNameLabel,
-              hintText: l10n.playerNameHint,
-              border: const OutlineInputBorder(),
-            ),
-          ),
+                TextField(
+                  controller: nameController,
+                  autofocus: true,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                    labelText: l10n.playerNameLabel,
+                    hintText: l10n.playerNameHint,
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
 
-          const SizedBox(height: 10),
+                const SizedBox(height: 10),
 
-          ColorPickerField(
-            initialColor: currentColor,
-            onColorSelected: (newColor) {
-              currentColor = newColor; 
-            },
+                ColorPickerField(
+                  initialColor: currentColor,
+                  onColorSelected: (newColor) {
+                    currentColor = newColor; 
+                  },
+                ),
+              ],
+            )
           ),
 
           const SizedBox(height: 24),
