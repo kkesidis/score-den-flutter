@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// **'Cancel'**
   String get cancel;
 
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
   /// No description provided for @save.
   ///
   /// In en, this message translates to:
@@ -601,6 +607,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{number} players'**
   String playersTracked(Object number);
+
+  /// No description provided for @guestTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get guestTab;
+
+  /// No description provided for @playersTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Players'**
+  String get playersTab;
+
+  /// No description provided for @noAvailablePlayers.
+  ///
+  /// In en, this message translates to:
+  /// **'There aren\'t any available players'**
+  String get noAvailablePlayers;
 }
 
 class _AppLocalizationsDelegate

@@ -26,6 +26,9 @@ class AppLocalizationsEl extends AppLocalizations {
   String get cancel => 'Ακύρωση';
 
   @override
+  String get close => 'Κλείσιμο';
+
+  @override
   String get save => 'Αποθήκευση';
 
   @override
@@ -287,4 +290,13 @@ class AppLocalizationsEl extends AppLocalizations {
   String playersTracked(Object number) {
     return '$number παίικτες';
   }
+
+  @override
+  String get guestTab => 'Επισκέπτης';
+
+  @override
+  String get playersTab => 'Παίκτες';
+
+  @override
+  String get noAvailablePlayers => 'Δεν υπάρχουν διαθέσιμοι παίκτες';
 }
