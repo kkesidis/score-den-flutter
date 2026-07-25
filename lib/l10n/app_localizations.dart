@@ -565,6 +565,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Board Game Score Tracker'**
   String get boardGameScoreTracker;
+
+  /// No description provided for @deletePlayerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Player'**
+  String get deletePlayerTitle;
+
+  /// No description provided for @deletePlayerDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{name}\"? This will permanently remove all associated session entries.'**
+  String deletePlayerDescription(Object name);
+
+  /// No description provided for @playerDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Player deleted successfully'**
+  String get playerDeleted;
+
+  /// No description provided for @playersScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Players'**
+  String get playersScreen;
+
+  /// No description provided for @noPlayersYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No players added yet. Tap + to begin!'**
+  String get noPlayersYet;
+
+  /// No description provided for @playersTracked.
+  ///
+  /// In en, this message translates to:
+  /// **'{number} players'**
+  String playersTracked(Object number);
 }
 
 class _AppLocalizationsDelegate

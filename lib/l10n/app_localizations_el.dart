@@ -264,4 +264,27 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get boardGameScoreTracker => 'Μετρητής σκορ επιτραπέζιων παιχνιδιών';
+
+  @override
+  String get deletePlayerTitle => 'Διαγραφή Παίχτη';
+
+  @override
+  String deletePlayerDescription(Object name) {
+    return 'Είστε σίγουροι ότι θέλετε να καταργήσετε τον παίκτη \"$name\"? Αυτή η ενέργεια θα διαγράψει οριστικά όλες τις καταγεγραμμένες εγγραφές του.';
+  }
+
+  @override
+  String get playerDeleted => 'Ο παίκτης διαγράφηκε επιτυχώς';
+
+  @override
+  String get playersScreen => 'Παίκτες';
+
+  @override
+  String get noPlayersYet =>
+      'Δεν έχουν προστεθεί παίκτες ακόμα. Πατήστε το + για να ξεκινήσετε!';
+
+  @override
+  String playersTracked(Object number) {
+    return '$number παίικτες';
+  }
 }

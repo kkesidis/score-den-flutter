@@ -261,4 +261,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get boardGameScoreTracker => 'Board Game Score Tracker';
+
+  @override
+  String get deletePlayerTitle => 'Delete Player';
+
+  @override
+  String deletePlayerDescription(Object name) {
+    return 'Are you sure you want to delete \"$name\"? This will permanently remove all associated session entries.';
+  }
+
+  @override
+  String get playerDeleted => 'Player deleted successfully';
+
+  @override
+  String get playersScreen => 'Players';
+
+  @override
+  String get noPlayersYet => 'No players added yet. Tap + to begin!';
+
+  @override
+  String playersTracked(Object number) {
+    return '$number players';
+  }
 }

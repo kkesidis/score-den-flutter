@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/language_screen.dart';
+import '../screens/player_list_screener.dart';
 import '../l10n/app_localizations.dart';
 import '../main.dart';
 
@@ -97,6 +98,20 @@ class BaseLayout extends StatelessWidget {
                 
                 // Clear all screens on top until we hit the first/root screen (Home)
                 Navigator.popUntil(context, (route) => route.isFirst);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.people),
+              title: Text(AppLocalizations.of(context)!.playersScreen),
+              onTap: () {
+                Navigator.pop(context);
+                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PlayerListScreen(),
+                  ),
+                );
               },
             ),
             ListTile(

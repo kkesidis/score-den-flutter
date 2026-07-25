@@ -77,5 +77,11 @@
   "theme": "Theme",
   "light": "Light",
   "dark": "Dark",
-  "boardGameScoreTracker": "Board Game Score Tracker"
+  "boardGameScoreTracker": "Board Game Score Tracker",
+  "deletePlayerTitle": "Delete Player",
+  "deletePlayerDescription": "Are you sure you want to delete \"{name}\"? This will permanently remove all associated session entries.",
+  "playerDeleted": "Player deleted successfully",
+  "playersScreen": "Players",
+  "noPlayersYet": "No players added yet. Tap + to begin!",
+  "playersTracked": "{number} players"
 }
