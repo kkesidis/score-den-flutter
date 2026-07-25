@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import '../models/board_game.dart';
 import '../l10n/app_localizations.dart';
-import '../widgets/player_card.dart';
-import '../widgets/player_score_history.dart';
-import '../widgets/player_form.dart';
+import '../widgets/player_session_card.dart';
+import '../widgets/player_session_score_history.dart';
+import '../widgets/player_session_form.dart';
 import '../widgets/score_form.dart';
 import '../widgets/base_layout.dart';
 import '../widgets/empty_state_card.dart';
@@ -68,7 +68,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            return PlayerForm(
+            return PlayerSessionForm(
               game: _game!,
               existingPlayer: existingPlayer,
               onSubmit: (playerToSave) async {
@@ -247,7 +247,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
             final currentMatch = _game!.sessions[widget.sessionIndex];
             final livePlayer = currentMatch.players[playerIndexInDatabase];
 
-            return PlayerScoreHistory(
+            return PlayerSessionScoreHistory(
               player: livePlayer,
               onEdit: (index) {
                 _showScoreEntryFormBottomSheet(
@@ -442,7 +442,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
               final playerName = playerSession.playerName ?? AppLocalizations.of(context)!.genericPlayerName;
               final isWinner = topPlayerIndex == index;
 
-              return PlayerCard(
+              return PlayerSessionCard(
                 game: _game!,
                 player: playerSession,
                 isWinner: isWinner,

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../models/board_game.dart';
 import '../l10n/app_localizations.dart';
 
-class PlayerScoreHistory extends StatelessWidget {
+class PlayerSessionScoreHistory extends StatelessWidget {
   final PlayerSession player;
   final void Function(int) onEdit;
   final void Function(int) onDelete;
 
-  const PlayerScoreHistory({
+  const PlayerSessionScoreHistory({
     super.key,
     required this.player,
     required this.onEdit,
