@@ -5,6 +5,7 @@
   "deleteBoardGameTitle": "Delete Board Game",
   "deleteBoardGameDescription": "Are you sure you want to delete \"{name}\"? This will permanently remove all associated sessions.",
   "cancel": "Cancel",
+  "close": "Close",
   "save": "Save",
   "add": "Add",
   "subtract": "Subtract",
@@ -83,5 +84,8 @@
   "playerDeleted": "Player deleted successfully",
   "playersScreen": "Players",
   "noPlayersYet": "No players added yet. Tap + to begin!",
-  "playersTracked": "{number} players"
+  "playersTracked": "{number} players",
+  "guestTab": "Guest",
+  "playersTab": "Players",
+  "noAvailablePlayers": "There aren't any available players"
 }

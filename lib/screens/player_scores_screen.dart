@@ -8,6 +8,7 @@ import '../widgets/player_session_form.dart';
 import '../widgets/score_form.dart';
 import '../widgets/base_layout.dart';
 import '../widgets/empty_state_card.dart';
+import '../widgets/player_quick_selection.dart';
 
 class PlayerScoresScreen extends StatefulWidget {
   final int gameId;
@@ -52,9 +53,10 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
     if (_game == null) return;
 
     PlayerSession? existingPlayer;
+    final currentMatchSession = _game!.sessions[widget.sessionIndex];
+    final playerIdsInGame = currentMatchSession.players.map((player) => player.playerId).whereType<int>().toList();
 
     if (playerIndexInDatabase != null) {
-      final currentMatchSession = _game!.sessions[widget.sessionIndex];
       existingPlayer = currentMatchSession.players[playerIndexInDatabase];
     }
 
@@ -65,34 +67,101 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.7, // 70% of screen height
+      ),
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            return PlayerSessionForm(
-              game: _game!,
-              existingPlayer: existingPlayer,
-              onSubmit: (playerToSave) async {
-                final sessionsList = _game!.sessions.toList();
-                final currentMatchSession = sessionsList[widget.sessionIndex];
-                final playersList = (currentMatchSession.players).toList();
+            return DefaultTabController(
+              length: 2, // Number of tabs
+              child: Column(
+                children: [
+                  // The Drag Handle (Optional visual indicator)
+                  const SizedBox(height: 12),
+                  Container(
+                    width: 40,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
 
-                if (playerIndexInDatabase != null) {
-                  playersList[playerIndexInDatabase] = playerToSave;
-                } else {
-                  playersList.add(playerToSave);
-                }
+                  TabBar(
+                    labelColor: Theme.of(context).colorScheme.onPrimary,
+                    unselectedLabelColor: Theme.of(context).colorScheme.onSecondary,
+                    tabs: [
+                      Tab(text: AppLocalizations.of(context)!.guestTab),
+                      Tab(text: AppLocalizations.of(context)!.playersTab),
+                    ],
+                  ),
 
-                currentMatchSession.players = playersList;
-                sessionsList[widget.sessionIndex] =
-                    currentMatchSession;
-                _game!.sessions = sessionsList;
+                  Expanded(
+                    child: TabBarView(
+                      children: [
+                        PlayerSessionForm(
+                          game: _game!,
+                          existingPlayer: existingPlayer,
+                          onSubmit: (playerToSave) async {
+                            final sessionsList = _game!.sessions.toList();
+                            final currentMatchSession = sessionsList[widget.sessionIndex];
+                            final playersList = (currentMatchSession.players).toList();
 
-                await isar.writeTxn(() async {
-                  await isar.boardGames.put(_game!);
-                });
+                            if (playerIndexInDatabase != null) {
+                              playersList[playerIndexInDatabase] = playerToSave;
+                            } else {
+                              playersList.add(playerToSave);
+                            }
 
-                if (context.mounted) Navigator.pop(context);
-              },
+                            currentMatchSession.players = playersList;
+                            sessionsList[widget.sessionIndex] =
+                                currentMatchSession;
+                            _game!.sessions = sessionsList;
+
+                            await isar.writeTxn(() async {
+                              await isar.boardGames.put(_game!);
+                            });
+
+                            if (context.mounted) Navigator.pop(context);
+                          },
+                        ),
+                        PlayerQuickSelection(
+                          unavailablePlayerIds: playerIdsInGame,
+                          onSelect: (player) async {
+                            final sessionsList = _game!.sessions.toList();
+                            final currentMatchSession = sessionsList[widget.sessionIndex];
+                            final playersList = (currentMatchSession.players).toList();
+
+                            final PlayerSession playerToSave = PlayerSession()
+                              ..playerName = player.name
+                              ..playerColorValue = player.colorValue
+                              ..playerId = player.id;
+
+                            playersList.add(playerToSave);
+
+                            currentMatchSession.players = playersList;
+                            sessionsList[widget.sessionIndex] =
+                                currentMatchSession;
+                            _game!.sessions = sessionsList;
+
+                            await isar.writeTxn(() async {
+                              await isar.boardGames.put(_game!);
+                            });
+
+                            setDialogState(() {
+                              playerIdsInGame.add(player.id);
+                            });
+                          },
+                          onCLose: () {
+                            if (context.mounted) Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             );
           },
         );

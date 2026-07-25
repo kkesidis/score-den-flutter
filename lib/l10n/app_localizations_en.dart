@@ -26,6 +26,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
+  String get close => 'Close';
+
+  @override
   String get save => 'Save';
 
   @override
@@ -283,4 +286,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String playersTracked(Object number) {
     return '$number players';
   }
+
+  @override
+  String get guestTab => 'Guest';
+
+  @override
+  String get playersTab => 'Players';
+
+  @override
+  String get noAvailablePlayers => 'There aren\'t any available players';
 }
