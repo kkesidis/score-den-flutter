@@ -4,7 +4,7 @@ import '../theme/app_theme.dart';
 import './stylized_card.dart';
 import '../l10n/app_localizations.dart';
 
-class PlayerCard extends StatelessWidget {
+class PlayerSessionCard extends StatelessWidget {
   final BoardGame game;
   final PlayerSession player;
   final bool isWinner;
@@ -13,7 +13,7 @@ class PlayerCard extends StatelessWidget {
   final VoidCallback onHistory;
   final VoidCallback onScore;
 
-  const PlayerCard({
+  const PlayerSessionCard({
     super.key,
     required this.game,
     required this.player,

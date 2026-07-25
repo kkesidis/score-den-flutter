@@ -4,12 +4,12 @@ import '../theme/app_theme.dart';
 import '../l10n/app_localizations.dart';
 import './color_picker_field.dart';
 
-class PlayerForm extends StatefulWidget {
+class PlayerSessionForm extends StatefulWidget {
   final BoardGame game;
   final PlayerSession? existingPlayer;
   final ValueChanged<PlayerSession> onSubmit;
 
-  const PlayerForm({
+  const PlayerSessionForm({
     super.key,
     required this.game,
     this.existingPlayer,
@@ -17,10 +17,10 @@ class PlayerForm extends StatefulWidget {
   });
 
   @override
-  State<PlayerForm> createState() => _PlayerFormState();
+  State<PlayerSessionForm> createState() => _PlayerSessionFormState();
 }
 
-class _PlayerFormState extends State<PlayerForm> {
+class _PlayerSessionFormState extends State<PlayerSessionForm> {
   final nameController = TextEditingController();
   late bool isEditing;
   bool highestWins = true;
