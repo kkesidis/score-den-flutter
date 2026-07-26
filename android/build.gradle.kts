@@ -18,7 +18,7 @@ allprojects {
         afterEvaluate {
             if (plugins.hasPlugin("com.android.library")) {
                 extensions.configure<com.android.build.gradle.LibraryExtension>("android") {
-                    compileSdk = 36
+                    compileSdk = 34
                 }
             }
         }
