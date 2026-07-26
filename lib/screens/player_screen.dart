@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import '../main.dart';
 import '../l10n/app_localizations.dart';
-import '../models/player.dart';
 import '../models/board_game.dart';
 import '../widgets/base_layout.dart';
 import '../widgets/empty_state_card.dart';
@@ -62,25 +61,13 @@ class PlayerScreen extends StatefulWidget {
 }
 
 class _PlayerScreenState extends State<PlayerScreen> {
-  Player? _player;
   List<BoardGame> _games = [];
 
   @override
   void initState() {
     super.initState();
-    _readPlayerFromDatabase();
     _readGamesFromDatabase();
     _listenToDatabaseChanges();
-  }
-
-  void _readPlayerFromDatabase() async {
-    final player = await isar.players.get(widget.playerId);
-
-    if (mounted && player != null) {
-      setState(() {
-        _player = player;
-      });
-    }
   }
 
   void _readGamesFromDatabase() async {
@@ -93,7 +80,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
   }
 
   void _listenToDatabaseChanges() {
-    isar.players.watchLazy().listen((_) => _readPlayerFromDatabase());
     isar.boardGames.watchLazy().listen((_) => _readGamesFromDatabase());
   }
 
@@ -282,7 +268,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
                         ListView.separated(
                           padding: const EdgeInsets.all(16.0),
                           itemCount: gameStatsList.length,
-                          separatorBuilder: (_, __) => const SizedBox(height: 6),
+                          separatorBuilder: (_, _) => const SizedBox(height: 6),
                           itemBuilder: (context, index) {
                             return _buildGameExpansionTile(context, gameStatsList[index]);
                           },
@@ -539,7 +525,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     return ListView.separated(
       padding: const EdgeInsets.all(16.0),
       itemCount: history.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 6),
+      separatorBuilder: (_, _) => const SizedBox(height: 6),
       itemBuilder: (context, index) {
         final item = history[index];
         final gameColor = item.game.colorValue != null
