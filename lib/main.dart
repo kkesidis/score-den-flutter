@@ -41,9 +41,6 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  // Hide system navigation & status bars (Game mode / Immersive)
-  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
-
   runApp(
     DevicePreview(
       enabled: !kReleaseMode, // Only enables in debug/profile mode, not production!
