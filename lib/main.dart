@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:device_preview/device_preview.dart';
@@ -31,12 +32,21 @@ void main() async {
     darkThemeNotifier.value = savedSettings.isDarkMode;
   }
 
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode, // Only enables in debug/profile mode, not production!
-      builder: (context) => const ScoreDenApp(), 
-    ),
-  );
+  // 1. Ensure plugin services are initialized before calling SystemChrome
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 2. Restrict orientations to portrait
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown, // Optional: allow upside-down portrait
+  ]).then((_) {
+    runApp(
+      DevicePreview(
+        enabled: !kReleaseMode, // Only enables in debug/profile mode, not production!
+        builder: (context) => const ScoreDenApp(), 
+      ),
+    );
+  });
 }
 
 class ScoreDenApp extends StatelessWidget {
