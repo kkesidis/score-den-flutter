@@ -295,4 +295,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noAvailablePlayers => 'There aren\'t any available players';
+
+  @override
+  String get playerInformation => 'Player information';
+
+  @override
+  String get noPlayedSessions => 'No played sessions found for this player';
+
+  @override
+  String get gamesBreakdown => 'Games Breakdown';
+
+  @override
+  String get matchHistory => 'Match History';
+
+  @override
+  String get gamesPlayed => 'games played';
+
+  @override
+  String get sessionsPlayed => 'Sessions';
+
+  @override
+  String get winRate => 'Win rate';
+
+  @override
+  String get winsLong => 'Wins';
+
+  @override
+  String get winsShort => 'W';
+
+  @override
+  String get lossesLong => 'Losses';
+
+  @override
+  String get lossesShort => 'L';
+
+  @override
+  String get tiesLong => 'Ties';
+
+  @override
+  String get tiesShort => 'T';
+
+  @override
+  String get won => 'Won';
+
+  @override
+  String get lost => 'Lost';
+
+  @override
+  String get tied => 'Tied';
+
+  @override
+  String get averageScore => 'Average Score';
+
+  @override
+  String get totalPointsScored => 'Total Points Scored';
+
+  @override
+  String get noMatchHistoryAvailable => 'No match history available.';
 }

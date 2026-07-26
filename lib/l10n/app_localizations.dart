@@ -625,6 +625,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'There aren\'t any available players'**
   String get noAvailablePlayers;
+
+  /// No description provided for @playerInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Player information'**
+  String get playerInformation;
+
+  /// No description provided for @noPlayedSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'No played sessions found for this player'**
+  String get noPlayedSessions;
+
+  /// No description provided for @gamesBreakdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Games Breakdown'**
+  String get gamesBreakdown;
+
+  /// No description provided for @matchHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Match History'**
+  String get matchHistory;
+
+  /// No description provided for @gamesPlayed.
+  ///
+  /// In en, this message translates to:
+  /// **'games played'**
+  String get gamesPlayed;
+
+  /// No description provided for @sessionsPlayed.
+  ///
+  /// In en, this message translates to:
+  /// **'Sessions'**
+  String get sessionsPlayed;
+
+  /// No description provided for @winRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Win rate'**
+  String get winRate;
+
+  /// No description provided for @winsLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Wins'**
+  String get winsLong;
+
+  /// No description provided for @winsShort.
+  ///
+  /// In en, this message translates to:
+  /// **'W'**
+  String get winsShort;
+
+  /// No description provided for @lossesLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Losses'**
+  String get lossesLong;
+
+  /// No description provided for @lossesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'L'**
+  String get lossesShort;
+
+  /// No description provided for @tiesLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Ties'**
+  String get tiesLong;
+
+  /// No description provided for @tiesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'T'**
+  String get tiesShort;
+
+  /// No description provided for @won.
+  ///
+  /// In en, this message translates to:
+  /// **'Won'**
+  String get won;
+
+  /// No description provided for @lost.
+  ///
+  /// In en, this message translates to:
+  /// **'Lost'**
+  String get lost;
+
+  /// No description provided for @tied.
+  ///
+  /// In en, this message translates to:
+  /// **'Tied'**
+  String get tied;
+
+  /// No description provided for @averageScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Average Score'**
+  String get averageScore;
+
+  /// No description provided for @totalPointsScored.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Points Scored'**
+  String get totalPointsScored;
+
+  /// No description provided for @noMatchHistoryAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No match history available.'**
+  String get noMatchHistoryAvailable;
 }
 
 class _AppLocalizationsDelegate

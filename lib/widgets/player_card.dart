@@ -7,12 +7,14 @@ class PlayerCard extends StatelessWidget {
   final Player player;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+  final VoidCallback onSelect;
 
   const PlayerCard({
     super.key,
     required this.player,
     required this.onEdit,
     required this.onDelete,
+    required this.onSelect,
   });
 
   @override
@@ -30,62 +32,10 @@ class PlayerCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           ListTile(
-            title: Row(
-              spacing: 8.0,
-              children: [
-                Text(
-                  player.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-              ],
+            title: Text(
+              player.name,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            // subtitle: Padding(
-            //   padding: const EdgeInsets.only(top: 8.0),
-            //   child: Row(
-            //     children: [
-            //       Container(
-            //         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            //         decoration: BoxDecoration(
-            //           // Standard translucent chip background: rgba(255, 255, 255, 0.07)
-            //           color: Theme.of(context).colorScheme.secondaryContainer, 
-            //           borderRadius: BorderRadius.circular(16),
-            //         ),
-            //         child: Row(
-            //           mainAxisSize: MainAxisSize.min, // Wraps container tightly around content
-            //           children: [
-            //             Icon(
-            //               Icons.layers_outlined,
-            //               size: 13,
-            //               color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
-            //             ),
-            //             const SizedBox(width: 6),
-            //             Text.rich(
-            //               TextSpan(
-            //                 children: [
-            //                   TextSpan(
-            //                     text: '$totalRounds ',
-            //                     style: TextStyle(
-            //                       color: highlightColor,
-            //                       fontWeight: FontWeight.w600, // Pop highlighting matching your other metric chips
-            //                     ),
-            //                   ),
-            //                   TextSpan(
-            //                     text: l10n.rounds, // Simplified text to fit standard metadata patterns
-            //                   ),
-            //                 ],
-            //                 style: TextStyle(
-            //                   fontSize: 12,
-            //                   fontWeight: FontWeight.w500,
-            //                   color: Theme.of(context).colorScheme.onSecondaryContainer,
-            //                 ),
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     ],
-            //   )
-            // ),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -109,8 +59,12 @@ class PlayerCard extends StatelessWidget {
                     onDelete();
                   },
                 ),
+                const Icon(Icons.chevron_right)
               ],
             ),
+            onTap: () {
+              onSelect();
+            },
           ),
         ],
       ),

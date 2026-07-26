@@ -7,6 +7,7 @@ import '../widgets/empty_state_card.dart';
 import '../models/player.dart';
 import '../widgets/player_form.dart';
 import '../widgets/player_card.dart';
+import './player_screen.dart';
 
 class PlayerListScreen extends StatefulWidget {
   const PlayerListScreen({super.key});
@@ -143,16 +144,14 @@ class _PlayerListScreenState extends State<PlayerListScreen> {
 
               return PlayerCard(
                 player: player,
-                // onSelect: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) {
-                //         // TODO  
-                //       }
-                //     ),
-                //   );
-                // },
+                onSelect: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PlayerScreen(playerId: player.id),
+                    ),
+                  );
+                },
                 onEdit: () {
                   _showPlayerDialog(existingPlayer: player);
                 },
