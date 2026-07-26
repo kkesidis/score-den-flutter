@@ -22,8 +22,13 @@ const PlayerSchema = CollectionSchema(
       name: r'colorValue',
       type: IsarType.long,
     ),
-    r'name': PropertySchema(
+    r'isMe': PropertySchema(
       id: 1,
+      name: r'isMe',
+      type: IsarType.bool,
+    ),
+    r'name': PropertySchema(
+      id: 2,
       name: r'name',
       type: IsarType.string,
     )
@@ -73,7 +78,8 @@ void _playerSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeLong(offsets[0], object.colorValue);
-  writer.writeString(offsets[1], object.name);
+  writer.writeBool(offsets[1], object.isMe);
+  writer.writeString(offsets[2], object.name);
 }
 
 Player _playerDeserialize(
@@ -84,7 +90,8 @@ Player _playerDeserialize(
 ) {
   final object = Player(
     colorValue: reader.readLong(offsets[0]),
-    name: reader.readString(offsets[1]),
+    isMe: reader.readBoolOrNull(offsets[1]),
+    name: reader.readString(offsets[2]),
   );
   object.id = id;
   return object;
@@ -100,6 +107,8 @@ P _playerDeserializeProp<P>(
     case 0:
       return (reader.readLong(offset)) as P;
     case 1:
+      return (reader.readBoolOrNull(offset)) as P;
+    case 2:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -396,6 +405,31 @@ extension PlayerQueryFilter on QueryBuilder<Player, Player, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Player, Player, QAfterFilterCondition> isMeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isMe',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> isMeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isMe',
+      ));
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterFilterCondition> isMeEqualTo(bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isMe',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Player, Player, QAfterFilterCondition> nameEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -543,6 +577,18 @@ extension PlayerQuerySortBy on QueryBuilder<Player, Player, QSortBy> {
     });
   }
 
+  QueryBuilder<Player, Player, QAfterSortBy> sortByIsMe() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isMe', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> sortByIsMeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isMe', Sort.desc);
+    });
+  }
+
   QueryBuilder<Player, Player, QAfterSortBy> sortByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
@@ -581,6 +627,18 @@ extension PlayerQuerySortThenBy on QueryBuilder<Player, Player, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Player, Player, QAfterSortBy> thenByIsMe() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isMe', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Player, Player, QAfterSortBy> thenByIsMeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isMe', Sort.desc);
+    });
+  }
+
   QueryBuilder<Player, Player, QAfterSortBy> thenByName() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'name', Sort.asc);
@@ -598,6 +656,12 @@ extension PlayerQueryWhereDistinct on QueryBuilder<Player, Player, QDistinct> {
   QueryBuilder<Player, Player, QDistinct> distinctByColorValue() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'colorValue');
+    });
+  }
+
+  QueryBuilder<Player, Player, QDistinct> distinctByIsMe() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isMe');
     });
   }
 
@@ -619,6 +683,12 @@ extension PlayerQueryProperty on QueryBuilder<Player, Player, QQueryProperty> {
   QueryBuilder<Player, int, QQueryOperations> colorValueProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'colorValue');
+    });
+  }
+
+  QueryBuilder<Player, bool?, QQueryOperations> isMeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isMe');
     });
   }
 

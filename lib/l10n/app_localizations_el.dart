@@ -299,4 +299,61 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get noAvailablePlayers => 'Δεν υπάρχουν διαθέσιμοι παίκτες';
+
+  @override
+  String get playerInformation => 'Πληροφορίες παίκτη';
+
+  @override
+  String get noPlayedSessions => 'Δεν βρέθηκαν παρτίδες για αυτόν τον παίκτη';
+
+  @override
+  String get gamesBreakdown => 'Ανάλυση Παιχνιδιών';
+
+  @override
+  String get matchHistory => 'Ιστορικό Παρτίδων';
+
+  @override
+  String get gamesPlayed => 'παιχνίδια';
+
+  @override
+  String get sessionsPlayed => 'Συνεδρίες';
+
+  @override
+  String get winRate => 'Ποσοστό νικών';
+
+  @override
+  String get winsLong => 'Νίκες';
+
+  @override
+  String get winsShort => 'Ν';
+
+  @override
+  String get lossesLong => 'Ήττες';
+
+  @override
+  String get lossesShort => 'Η';
+
+  @override
+  String get tiesLong => 'Ισοπαλίες';
+
+  @override
+  String get tiesShort => 'Ι';
+
+  @override
+  String get won => 'Νίκησε';
+
+  @override
+  String get lost => 'Έχασε';
+
+  @override
+  String get tied => 'Ισοφάρισε';
+
+  @override
+  String get averageScore => 'Μέσος όρος σκορ';
+
+  @override
+  String get totalPointsScored => 'Συνολικοί πόντοι';
+
+  @override
+  String get noMatchHistoryAvailable => 'Δεν υπάρχει ιστορικό παρτίδων.';
 }
