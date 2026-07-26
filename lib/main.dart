@@ -32,21 +32,24 @@ void main() async {
     darkThemeNotifier.value = savedSettings.isDarkMode;
   }
 
-  // 1. Ensure plugin services are initialized before calling SystemChrome
+  // Ensure plugin services are initialized before calling SystemChrome
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. Restrict orientations to portrait
-  SystemChrome.setPreferredOrientations([
+  // Lock to portrait
+  await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown, // Optional: allow upside-down portrait
-  ]).then((_) {
-    runApp(
-      DevicePreview(
-        enabled: !kReleaseMode, // Only enables in debug/profile mode, not production!
-        builder: (context) => const ScoreDenApp(), 
-      ),
-    );
-  });
+    DeviceOrientation.portraitDown,
+  ]);
+
+  // Hide system navigation & status bars (Game mode / Immersive)
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode, // Only enables in debug/profile mode, not production!
+      builder: (context) => const ScoreDenApp(), 
+    ),
+  );
 }
 
 class ScoreDenApp extends StatelessWidget {
