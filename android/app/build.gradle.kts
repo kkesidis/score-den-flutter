@@ -29,7 +29,7 @@ android {
         
         // 2. Force your app to lock to Android 14
         minSdk = flutter.minSdkVersion
-        targetSdk = 35
+        targetSdk = 36
         
         versionCode = flutter.versionCode
         versionName = flutter.versionName
