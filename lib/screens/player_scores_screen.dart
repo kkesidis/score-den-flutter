@@ -73,95 +73,99 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            return DefaultTabController(
-              length: 2, // Number of tabs
-              child: Column(
-                children: [
-                  // The Drag Handle (Optional visual indicator)
-                  const SizedBox(height: 12),
-                  Container(
-                    width: 40,
-                    height: 4,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.onSecondary,
-                      borderRadius: BorderRadius.circular(2),
+            return SafeArea(
+              top: true,
+              bottom: true,
+              child: DefaultTabController(
+                length: 2, // Number of tabs
+                child: Column(
+                  children: [
+                    // The Drag Handle (Optional visual indicator)
+                    const SizedBox(height: 12),
+                    Container(
+                      width: 40,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
                     ),
-                  ),
 
-                  TabBar(
-                    labelColor: Theme.of(context).colorScheme.onPrimary,
-                    unselectedLabelColor: Theme.of(context).colorScheme.onSecondary,
-                    tabs: [
-                      Tab(text: AppLocalizations.of(context)!.guestTab),
-                      Tab(text: AppLocalizations.of(context)!.playersTab),
-                    ],
-                  ),
-
-                  Expanded(
-                    child: TabBarView(
-                      children: [
-                        PlayerSessionForm(
-                          game: _game!,
-                          existingPlayer: existingPlayer,
-                          onSubmit: (playerToSave) async {
-                            final sessionsList = _game!.sessions.toList();
-                            final currentMatchSession = sessionsList[widget.sessionIndex];
-                            final playersList = (currentMatchSession.players).toList();
-
-                            if (playerIndexInDatabase != null) {
-                              playersList[playerIndexInDatabase] = playerToSave;
-                            } else {
-                              playersList.add(playerToSave);
-                            }
-
-                            currentMatchSession.players = playersList;
-                            sessionsList[widget.sessionIndex] =
-                                currentMatchSession;
-                            _game!.sessions = sessionsList;
-
-                            await isar.writeTxn(() async {
-                              await isar.boardGames.put(_game!);
-                            });
-
-                            if (context.mounted) Navigator.pop(context);
-                          },
-                        ),
-                        PlayerQuickSelection(
-                          unavailablePlayerIds: playerIdsInGame,
-                          onSelect: (player) async {
-                            final sessionsList = _game!.sessions.toList();
-                            final currentMatchSession = sessionsList[widget.sessionIndex];
-                            final playersList = (currentMatchSession.players).toList();
-
-                            final PlayerSession playerToSave = PlayerSession()
-                              ..playerName = player.name
-                              ..playerColorValue = player.colorValue
-                              ..playerId = player.id;
-
-                            playersList.add(playerToSave);
-
-                            currentMatchSession.players = playersList;
-                            sessionsList[widget.sessionIndex] =
-                                currentMatchSession;
-                            _game!.sessions = sessionsList;
-
-                            await isar.writeTxn(() async {
-                              await isar.boardGames.put(_game!);
-                            });
-
-                            setDialogState(() {
-                              playerIdsInGame.add(player.id);
-                            });
-                          },
-                          onCLose: () {
-                            if (context.mounted) Navigator.pop(context);
-                          },
-                        ),
+                    TabBar(
+                      labelColor: Theme.of(context).colorScheme.onPrimary,
+                      unselectedLabelColor: Theme.of(context).colorScheme.onSecondary,
+                      tabs: [
+                        Tab(text: AppLocalizations.of(context)!.guestTab),
+                        Tab(text: AppLocalizations.of(context)!.playersTab),
                       ],
                     ),
-                  ),
-                ],
-              ),
+
+                    Expanded(
+                      child: TabBarView(
+                        children: [
+                          PlayerSessionForm(
+                            game: _game!,
+                            existingPlayer: existingPlayer,
+                            onSubmit: (playerToSave) async {
+                              final sessionsList = _game!.sessions.toList();
+                              final currentMatchSession = sessionsList[widget.sessionIndex];
+                              final playersList = (currentMatchSession.players).toList();
+
+                              if (playerIndexInDatabase != null) {
+                                playersList[playerIndexInDatabase] = playerToSave;
+                              } else {
+                                playersList.add(playerToSave);
+                              }
+
+                              currentMatchSession.players = playersList;
+                              sessionsList[widget.sessionIndex] =
+                                  currentMatchSession;
+                              _game!.sessions = sessionsList;
+
+                              await isar.writeTxn(() async {
+                                await isar.boardGames.put(_game!);
+                              });
+
+                              if (context.mounted) Navigator.pop(context);
+                            },
+                          ),
+                          PlayerQuickSelection(
+                            unavailablePlayerIds: playerIdsInGame,
+                            onSelect: (player) async {
+                              final sessionsList = _game!.sessions.toList();
+                              final currentMatchSession = sessionsList[widget.sessionIndex];
+                              final playersList = (currentMatchSession.players).toList();
+
+                              final PlayerSession playerToSave = PlayerSession()
+                                ..playerName = player.name
+                                ..playerColorValue = player.colorValue
+                                ..playerId = player.id;
+
+                              playersList.add(playerToSave);
+
+                              currentMatchSession.players = playersList;
+                              sessionsList[widget.sessionIndex] =
+                                  currentMatchSession;
+                              _game!.sessions = sessionsList;
+
+                              await isar.writeTxn(() async {
+                                await isar.boardGames.put(_game!);
+                              });
+
+                              setDialogState(() {
+                                playerIdsInGame.add(player.id);
+                              });
+                            },
+                            onCLose: () {
+                              if (context.mounted) Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
             );
           },
         );
@@ -189,46 +193,50 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setModalState) {
-            return ScoreForm(
-              game: _game!,
-              player: player,
-              score: existingEntry,
-              onSubmit: (scoreToSave) async {
-                if (_game == null) {
-                  return;
+            return SafeArea(
+              top: true,
+              bottom: true,
+              child: ScoreForm(
+                game: _game!,
+                player: player,
+                score: existingEntry,
+                onSubmit: (scoreToSave) async {
+                  if (_game == null) {
+                    return;
+                  }
+
+                  final sessionsList = _game!.sessions.toList();
+                  final currentMatchSession = sessionsList[widget.sessionIndex];
+                  final playersList = currentMatchSession.players.toList();
+                  final targetPlayer = playersList[playerIndexInDatabase];
+                  final updatedScores = targetPlayer.scores.toList();
+
+                  if (scoreIndex != null) {
+                    updatedScores[scoreIndex] = scoreToSave;
+                  } else {
+                    updatedScores.add(scoreToSave);
+                  }
+
+                  targetPlayer.scores = updatedScores;
+                  playersList[playerIndexInDatabase] = targetPlayer;
+
+                  currentMatchSession.players = playersList;
+                  sessionsList[widget.sessionIndex] =
+                      currentMatchSession;
+                  _game!.sessions = sessionsList;
+
+                  await isar.writeTxn(() async {
+                    await isar.boardGames.put(_game!);
+                  });
+
+                  // Fire localized view updates back up to the calling history panel
+                  if (setSheetState != null) {
+                    setSheetState(() {});
+                  }
+
+                  if (context.mounted) Navigator.pop(context);
                 }
-
-                final sessionsList = _game!.sessions.toList();
-                final currentMatchSession = sessionsList[widget.sessionIndex];
-                final playersList = currentMatchSession.players.toList();
-                final targetPlayer = playersList[playerIndexInDatabase];
-                final updatedScores = targetPlayer.scores.toList();
-
-                if (scoreIndex != null) {
-                  updatedScores[scoreIndex] = scoreToSave;
-                } else {
-                  updatedScores.add(scoreToSave);
-                }
-
-                targetPlayer.scores = updatedScores;
-                playersList[playerIndexInDatabase] = targetPlayer;
-
-                currentMatchSession.players = playersList;
-                sessionsList[widget.sessionIndex] =
-                    currentMatchSession;
-                _game!.sessions = sessionsList;
-
-                await isar.writeTxn(() async {
-                  await isar.boardGames.put(_game!);
-                });
-
-                // Fire localized view updates back up to the calling history panel
-                if (setSheetState != null) {
-                  setSheetState(() {});
-                }
-
-                if (context.mounted) Navigator.pop(context);
-              }
+              )
             );
           },
         );
@@ -316,23 +324,27 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
             final currentMatch = _game!.sessions[widget.sessionIndex];
             final livePlayer = currentMatch.players[playerIndexInDatabase];
 
-            return PlayerSessionScoreHistory(
-              player: livePlayer,
-              onEdit: (index) {
-                _showScoreEntryFormBottomSheet(
-                  livePlayer, // 1. Required positional player data object
-                  playerIndexInDatabase, // 2. Required positional target database index slot
-                  scoreIndex: index, // Named parameter identifying which entry is targeted
-                  setSheetState: setSheetState, // Named parameter callback to force live data rebuilds below
-                );
-              },
-              onDelete: (index) {
-                _deleteSingleScoreEntry(
-                  playerIndexInDatabase,
-                  index,
-                  setSheetState,
-                );
-              }
+            return SafeArea(
+              top: true,
+              bottom: true,
+              child: PlayerSessionScoreHistory(
+                player: livePlayer,
+                onEdit: (index) {
+                  _showScoreEntryFormBottomSheet(
+                    livePlayer, // 1. Required positional player data object
+                    playerIndexInDatabase, // 2. Required positional target database index slot
+                    scoreIndex: index, // Named parameter identifying which entry is targeted
+                    setSheetState: setSheetState, // Named parameter callback to force live data rebuilds below
+                  );
+                },
+                onDelete: (index) {
+                  _deleteSingleScoreEntry(
+                    playerIndexInDatabase,
+                    index,
+                    setSheetState,
+                  );
+                }
+              ),
             );
           },
         );

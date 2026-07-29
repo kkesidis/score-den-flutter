@@ -76,31 +76,35 @@ class _MatchSessionsScreenState extends State<MatchSessionsScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            return SessionForm(
-              game: _game!,
-              existingSession: existingSession,
-              onAdd: (newSession) async {
-                final updatedSessions = _game!.sessions.toList();
-                updatedSessions.add(newSession);
+            return SafeArea(
+              top: true,
+              bottom: true,
+              child: SessionForm(
+                game: _game!,
+                existingSession: existingSession,
+                onAdd: (newSession) async {
+                  final updatedSessions = _game!.sessions.toList();
+                  updatedSessions.add(newSession);
 
-                _game!.sessions = updatedSessions;
-                await isar.writeTxn(() async {
-                  await isar.boardGames.put(_game!);
-                });
+                  _game!.sessions = updatedSessions;
+                  await isar.writeTxn(() async {
+                    await isar.boardGames.put(_game!);
+                  });
 
-                if (context.mounted) Navigator.pop(context);
-              },
-              onSave: (sessionToSave) async {
-                final updatedSessions = _game!.sessions.toList();
-                updatedSessions[actualIndex!] = sessionToSave;
+                  if (context.mounted) Navigator.pop(context);
+                },
+                onSave: (sessionToSave) async {
+                  final updatedSessions = _game!.sessions.toList();
+                  updatedSessions[actualIndex!] = sessionToSave;
 
-                _game!.sessions = updatedSessions;
-                await isar.writeTxn(() async {
-                  await isar.boardGames.put(_game!);
-                });
+                  _game!.sessions = updatedSessions;
+                  await isar.writeTxn(() async {
+                    await isar.boardGames.put(_game!);
+                  });
 
-                if (context.mounted) Navigator.pop(context);
-              }
+                  if (context.mounted) Navigator.pop(context);
+                }
+              )
             );
           },
         );
