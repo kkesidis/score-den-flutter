@@ -7,12 +7,14 @@ import './color_picker_field.dart';
 class PlayerSessionForm extends StatefulWidget {
   final BoardGame game;
   final PlayerSession? existingPlayer;
+  final List<Color>? usedColors;
   final ValueChanged<PlayerSession> onSubmit;
 
   const PlayerSessionForm({
     super.key,
     required this.game,
     this.existingPlayer,
+    this.usedColors,
     required this.onSubmit,
   });
 
@@ -40,6 +42,13 @@ class _PlayerSessionFormState extends State<PlayerSessionForm> {
 
       final inheritedColor = widget.existingPlayer!.playerColorValue ?? widget.game.colorValue;
       currentColor = inheritedColor != null ? Color(inheritedColor) : currentColor;
+    } else {
+      final usedColors = (widget.usedColors ?? []).toSet();
+      final selectedColor = AppTheme.palette.firstWhere(
+        (color) => !usedColors.contains(color),
+        orElse: () => AppTheme.palette.first,
+      );
+      currentColor = selectedColor;
     }
   }
 

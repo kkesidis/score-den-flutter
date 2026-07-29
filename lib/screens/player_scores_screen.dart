@@ -55,6 +55,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
     PlayerSession? existingPlayer;
     final currentMatchSession = _game!.sessions[widget.sessionIndex];
     final playerIdsInGame = currentMatchSession.players.map((player) => player.playerId).whereType<int>().toList();
+    final usedColors = currentMatchSession.players.map((player) => player.playerColorValue).whereType<int>().map((colorValue) => Color(colorValue)).toList();
 
     if (playerIndexInDatabase != null) {
       existingPlayer = currentMatchSession.players[playerIndexInDatabase];
@@ -95,6 +96,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                           PlayerSessionForm(
                             game: _game!,
                             existingPlayer: existingPlayer,
+                            usedColors: usedColors,
                             onSubmit: (playerToSave) async {
                               final sessionsList = _game!.sessions.toList();
                               final currentMatchSession = sessionsList[widget.sessionIndex];
