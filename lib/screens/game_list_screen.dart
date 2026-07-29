@@ -92,15 +92,19 @@ class _GameListScreenState extends State<GameListScreen> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setDialogState) {
-            return GameForm(
-              existingGame: existingGame,
-              onSubmit: (gameToSave) async {
-                await isar.writeTxn(() async {
-                  await isar.boardGames.put(gameToSave);
-                });
+            return SafeArea(
+              top: true,
+              bottom: true,
+              child: GameForm(
+                existingGame: existingGame,
+                onSubmit: (gameToSave) async {
+                  await isar.writeTxn(() async {
+                    await isar.boardGames.put(gameToSave);
+                  });
 
-                if (context.mounted) Navigator.pop(context);
-              }
+                  if (context.mounted) Navigator.pop(context);
+                }
+              )
             );
           },
         );
