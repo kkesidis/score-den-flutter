@@ -80,17 +80,6 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                 length: 2, // Number of tabs
                 child: Column(
                   children: [
-                    // The Drag Handle (Optional visual indicator)
-                    const SizedBox(height: 12),
-                    Container(
-                      width: 40,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onSecondary,
-                        borderRadius: BorderRadius.circular(2),
-                      ),
-                    ),
-
                     TabBar(
                       labelColor: Theme.of(context).colorScheme.onPrimary,
                       unselectedLabelColor: Theme.of(context).colorScheme.onSecondary,
