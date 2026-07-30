@@ -86,6 +86,11 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                         Tab(text: AppLocalizations.of(context)!.guestTab),
                         Tab(text: AppLocalizations.of(context)!.playersTab),
                       ],
+                      onTap: (index) {
+                        if (index != 0) {
+                          FocusScope.of(context).unfocus();
+                        }
+                      },
                     ),
 
                     Expanded(
