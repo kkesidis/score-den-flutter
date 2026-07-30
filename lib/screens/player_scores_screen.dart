@@ -82,8 +82,6 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                 child: Column(
                   children: [
                     TabBar(
-                      labelColor: Theme.of(context).colorScheme.onPrimary,
-                      unselectedLabelColor: Theme.of(context).colorScheme.onSecondary,
                       tabs: [
                         Tab(text: AppLocalizations.of(context)!.guestTab),
                         Tab(text: AppLocalizations.of(context)!.playersTab),

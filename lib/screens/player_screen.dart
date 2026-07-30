@@ -207,7 +207,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final gameStatsList = _games
       .map((g) => _calculateStatsForGame(g))
       .whereType<GameStats>()
@@ -253,9 +252,6 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ),
 
                   TabBar(
-                    labelColor: theme.colorScheme.primary,
-                    unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-                    indicatorColor: theme.colorScheme.primary,
                     tabs: [
                       Tab(text: AppLocalizations.of(context)!.gamesBreakdown),
                       Tab(text: AppLocalizations.of(context)!.matchHistory),

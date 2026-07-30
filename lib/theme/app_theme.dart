@@ -323,5 +323,11 @@ ThemeData buildThemeData(AppColors colors, ThemeType themeType) {
         return colors.border;
       }),
     ),
+    tabBarTheme: TabBarThemeData(
+      labelColor: colors.foreground,
+      unselectedLabelColor: colors.mutedForeground,
+      indicatorColor: colors.accent,
+      indicatorSize: TabBarIndicatorSize.tab,
+    ),
   );
 }
