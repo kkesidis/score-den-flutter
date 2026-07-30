@@ -329,5 +329,10 @@ ThemeData buildThemeData(AppColors colors, ThemeType themeType) {
       indicatorColor: colors.accent,
       indicatorSize: TabBarIndicatorSize.tab,
     ),
+    bottomSheetTheme: BottomSheetThemeData(
+      showDragHandle: true,
+      dragHandleColor: colors.secondary,
+      dragHandleSize: const Size(60, 4), // Width & height of the pill
+    ),
   );
 }

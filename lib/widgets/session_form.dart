@@ -45,7 +45,6 @@ class _SessionFormState extends State<SessionForm> {
 
     return Padding(
       padding: EdgeInsets.only(
-        top: 16.0,
         left: 16.0,
         right: 16.0,
         bottom:

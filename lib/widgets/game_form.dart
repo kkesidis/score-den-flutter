@@ -46,7 +46,6 @@ class _GameFormState extends State<GameForm> {
 
     return Padding(
       padding: EdgeInsets.only(
-        top: 16.0,
         left: 16.0,
         right: 16.0,
         bottom: MediaQuery.of(context).viewInsets.bottom + 16.0,
