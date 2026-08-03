@@ -8,6 +8,7 @@ class ScoreForm extends StatefulWidget {
   final BoardGame game;
   final PlayerSession player;
   final ScoreEntry? score;
+  final ScoreOp? initialScoreOp;
   final ValueChanged<ScoreEntry> onSubmit;
 
   const ScoreForm({
@@ -15,6 +16,7 @@ class ScoreForm extends StatefulWidget {
     required this.game,
     required this.player,
     this.score,
+    this.initialScoreOp,
     required this.onSubmit,
   });
 
@@ -36,6 +38,10 @@ class _ScoreFormState extends State<ScoreForm> {
   }
 
   void _initForm() {
+    if (widget.initialScoreOp != null) {
+      currentOp = widget.initialScoreOp!;  
+    }
+    
     isEditing = widget.score != null;
     currentScore = widget.player.scores.fold<int>(0, (sum, score) => sum + (score.value ?? 0));
 

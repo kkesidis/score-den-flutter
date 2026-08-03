@@ -3,6 +3,7 @@ import '../models/board_game.dart';
 import '../theme/app_theme.dart';
 import './stylized_card.dart';
 import '../l10n/app_localizations.dart';
+import './score_form.dart';
 
 class PlayerSessionCard extends StatelessWidget {
   final BoardGame game;
@@ -11,7 +12,7 @@ class PlayerSessionCard extends StatelessWidget {
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback onHistory;
-  final VoidCallback onScore;
+  final ValueChanged<ScoreOp> onScore;
   final VoidCallback onQuickAdd;
   final VoidCallback onQuickSubtract;
 
@@ -128,6 +129,9 @@ class PlayerSessionCard extends StatelessWidget {
                         onPressed: () {
                           onQuickSubtract();
                         },
+                        onLongPress: () {
+                          onScore(ScoreOp.subtract);
+                        },
                       ),
                     ),
                     Expanded(
@@ -165,6 +169,9 @@ class PlayerSessionCard extends StatelessWidget {
                         onPressed: () {
                           onQuickAdd();
                         },
+                        onLongPress: () {
+                          onScore(ScoreOp.add);
+                        },
                       ),
                     ),
                   ],
@@ -172,7 +179,7 @@ class PlayerSessionCard extends StatelessWidget {
               ),
             ),
             onTap: () {
-              onScore();
+              onScore(ScoreOp.add);
             },
           )
         ],
