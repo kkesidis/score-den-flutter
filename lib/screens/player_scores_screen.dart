@@ -167,6 +167,36 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
     );
   }
 
+  Future<void> _savePlayerScore(int playerIndexInDatabase, int? scoreIndex, ScoreEntry scoreToSave) async {
+    if (_game == null) {
+      return;
+    }
+
+    final sessionsList = _game!.sessions.toList();
+    final currentMatchSession = sessionsList[widget.sessionIndex];
+    final playersList = currentMatchSession.players.toList();
+    final targetPlayer = playersList[playerIndexInDatabase];
+    final updatedScores = targetPlayer.scores.toList();
+
+    if (scoreIndex != null) {
+      updatedScores[scoreIndex] = scoreToSave;
+    } else {
+      updatedScores.add(scoreToSave);
+    }
+
+    targetPlayer.scores = updatedScores;
+    playersList[playerIndexInDatabase] = targetPlayer;
+
+    currentMatchSession.players = playersList;
+    sessionsList[widget.sessionIndex] =
+        currentMatchSession;
+    _game!.sessions = sessionsList;
+
+    await isar.writeTxn(() async {
+      await isar.boardGames.put(_game!);
+    });
+  }
+
   void _showScoreEntryFormBottomSheet(
     PlayerSession player,
     int playerIndexInDatabase, {
@@ -195,33 +225,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                 player: player,
                 score: existingEntry,
                 onSubmit: (scoreToSave) async {
-                  if (_game == null) {
-                    return;
-                  }
-
-                  final sessionsList = _game!.sessions.toList();
-                  final currentMatchSession = sessionsList[widget.sessionIndex];
-                  final playersList = currentMatchSession.players.toList();
-                  final targetPlayer = playersList[playerIndexInDatabase];
-                  final updatedScores = targetPlayer.scores.toList();
-
-                  if (scoreIndex != null) {
-                    updatedScores[scoreIndex] = scoreToSave;
-                  } else {
-                    updatedScores.add(scoreToSave);
-                  }
-
-                  targetPlayer.scores = updatedScores;
-                  playersList[playerIndexInDatabase] = targetPlayer;
-
-                  currentMatchSession.players = playersList;
-                  sessionsList[widget.sessionIndex] =
-                      currentMatchSession;
-                  _game!.sessions = sessionsList;
-
-                  await isar.writeTxn(() async {
-                    await isar.boardGames.put(_game!);
-                  });
+                  await _savePlayerScore(playerIndexInDatabase, scoreIndex, scoreToSave);
 
                   // Fire localized view updates back up to the calling history panel
                   if (setSheetState != null) {
@@ -543,7 +547,19 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                     playerSession,
                     trueIndexInDatabase,
                   );
-                }
+                },
+                onQuickAdd: () {
+                  final scoreToSave = ScoreEntry()
+                    ..value = 1;
+
+                  _savePlayerScore(trueIndexInDatabase, null, scoreToSave);
+                },
+                onQuickSubtract: () {
+                  final scoreToSave = ScoreEntry()
+                    ..value = -1;
+
+                  _savePlayerScore(trueIndexInDatabase, null, scoreToSave);
+                },
               );
             },
           ),

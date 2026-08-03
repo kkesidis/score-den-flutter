@@ -209,9 +209,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get removePlayer => 'Remove Player';
 
   @override
-  String get rounds => 'rounds';
-
-  @override
   String get playerNameLabel => 'Player Name';
 
   @override

@@ -212,9 +212,6 @@ class AppLocalizationsEl extends AppLocalizations {
   String get removePlayer => 'Κατάργηση παίκτη';
 
   @override
-  String get rounds => 'γύροι';
-
-  @override
   String get playerNameLabel => 'Όνομα παίκτη';
 
   @override
