@@ -111,7 +111,7 @@ class _ScoreFormState extends State<ScoreForm> {
       : -parsedValue;
     final newScore = currentScore + finalValueModifier;
 
-    void _submitForm() async {
+    void submitForm() async {
       final score = scoreController.text.trim();
 
       if (score.isEmpty) return;
@@ -202,7 +202,7 @@ class _ScoreFormState extends State<ScoreForm> {
                     : Theme.of(context).colorScheme.error,
               ),
             ),
-            onSubmitted: (_) => _submitForm(),
+            onSubmitted: (_) => submitForm(),
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 16),
@@ -265,7 +265,7 @@ class _ScoreFormState extends State<ScoreForm> {
                   foregroundColor: Theme.of(context).colorScheme.onPrimary,
                 ),
                 onPressed: () async {
-                  _submitForm();
+                  submitForm();
                 },
                 child: Text(isEditing ? l10n.save : l10n.logScore),
               ),
