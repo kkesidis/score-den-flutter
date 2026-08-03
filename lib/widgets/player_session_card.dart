@@ -120,12 +120,12 @@ class PlayerSessionCard extends StatelessWidget {
                       height: scoreSize,
                       child: IconButton(
                         style: IconButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.error,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: highlightColor, width: 1.5),
                           ),
                         ),
-                        icon: Icon(Icons.remove, color: highlightColor),
+                        icon: Icon(Icons.remove, color: Theme.of(context).colorScheme.onError),
                         onPressed: () {
                           onQuickSubtract();
                         },
@@ -160,12 +160,12 @@ class PlayerSessionCard extends StatelessWidget {
                       height: scoreSize,
                       child: IconButton(
                         style: IconButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.primary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
-                            side: BorderSide(color: highlightColor, width: 1.5),
                           ),
                         ),
-                        icon: Icon(Icons.add, color: highlightColor),
+                        icon: Icon(Icons.add, color: Theme.of(context).colorScheme.onPrimary),
                         onPressed: () {
                           onQuickAdd();
                         },
