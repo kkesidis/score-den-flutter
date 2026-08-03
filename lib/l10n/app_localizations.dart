@@ -458,12 +458,6 @@ abstract class AppLocalizations {
   /// **'Remove Player'**
   String get removePlayer;
 
-  /// No description provided for @rounds.
-  ///
-  /// In en, this message translates to:
-  /// **'rounds'**
-  String get rounds;
-
   /// No description provided for @playerNameLabel.
   ///
   /// In en, this message translates to:

@@ -60,7 +60,6 @@
   "editPlayer": "Edit Player",
   "viewScoreHistory": "View Score History",
   "removePlayer": "Remove Player",
-  "rounds": "rounds",
   "playerNameLabel": "Player Name",
   "playerNameHint": "e.g. Alice",
   "pointsLabel": "Points",
