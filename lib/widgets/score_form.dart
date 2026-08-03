@@ -111,6 +111,20 @@ class _ScoreFormState extends State<ScoreForm> {
       : -parsedValue;
     final newScore = currentScore + finalValueModifier;
 
+    void _submitForm() async {
+      final score = scoreController.text.trim();
+
+      if (score.isEmpty) return;
+
+      final scoreToSave = ScoreEntry()
+        ..value = finalValueModifier
+        ..description = descController.text.isEmpty 
+            ? null 
+            : descController.text.trim();
+
+      widget.onSubmit(scoreToSave);
+    }
+
     return Padding(
       padding: EdgeInsets.only(
         left: 20.0,
@@ -188,6 +202,7 @@ class _ScoreFormState extends State<ScoreForm> {
                     : Theme.of(context).colorScheme.error,
               ),
             ),
+            onSubmitted: (_) => _submitForm(),
             keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 16),
@@ -250,15 +265,7 @@ class _ScoreFormState extends State<ScoreForm> {
                   foregroundColor: Theme.of(context).colorScheme.onPrimary,
                 ),
                 onPressed: () async {
-                  final score = scoreController.text.trim();
-
-                  if (score.isEmpty) return;
-
-                  final scoreToSave = ScoreEntry()
-                    ..value = finalValueModifier
-                    ..description = descController.text.isEmpty ? null : descController.text.trim();
-
-                  widget.onSubmit(scoreToSave);
+                  _submitForm();
                 },
                 child: Text(isEditing ? l10n.save : l10n.logScore),
               ),
