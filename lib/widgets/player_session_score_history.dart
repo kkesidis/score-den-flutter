@@ -80,12 +80,14 @@ class PlayerSessionScoreHistory extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    subtitle: Text(
-                      entry.description ?? AppLocalizations.of(context)!.notAvailable,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondaryContainer,
+                    subtitle: entry.description != null
+                      ? Text(
+                        entry.description!,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondaryContainer,
+                        )
                       )
-                    ),
+                      : null,
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
