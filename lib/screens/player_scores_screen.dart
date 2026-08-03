@@ -197,11 +197,12 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
     });
   }
 
-  void _showScoreEntryFormBottomSheet(
-    PlayerSession player,
-    int playerIndexInDatabase, {
+  void _showScoreEntryFormBottomSheet({
+    required PlayerSession player,
+    required int playerIndexInDatabase,
     int? scoreIndex, // Optional named param for editing
     StateSetter? setSheetState, // Optional named param for history panels
+    ScoreOp? scoreOp,
   }) {
     final ScoreEntry? existingEntry = scoreIndex != null
       ? player.scores[scoreIndex]
@@ -224,6 +225,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                 game: _game!,
                 player: player,
                 score: existingEntry,
+                initialScoreOp: scoreOp,
                 onSubmit: (scoreToSave) async {
                   await _savePlayerScore(playerIndexInDatabase, scoreIndex, scoreToSave);
 
@@ -329,8 +331,8 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                 player: livePlayer,
                 onEdit: (index) {
                   _showScoreEntryFormBottomSheet(
-                    livePlayer, // 1. Required positional player data object
-                    playerIndexInDatabase, // 2. Required positional target database index slot
+                    player: livePlayer, // 1. Required positional player data object
+                    playerIndexInDatabase: playerIndexInDatabase, // 2. Required positional target database index slot
                     scoreIndex: index, // Named parameter identifying which entry is targeted
                     setSheetState: setSheetState, // Named parameter callback to force live data rebuilds below
                   );
@@ -542,10 +544,13 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
                     trueIndexInDatabase,
                   );
                 },
-                onScore: () {
+                onScore: (scoreOp) {
                   _showScoreEntryFormBottomSheet(
-                    playerSession,
-                    trueIndexInDatabase,
+                    player: playerSession,
+                    playerIndexInDatabase: trueIndexInDatabase,
+                    scoreIndex: null,
+                    setSheetState: null,
+                    scoreOp: scoreOp,
                   );
                 },
                 onQuickAdd: () {
