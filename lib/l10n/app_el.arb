@@ -105,5 +105,7 @@
   "tied": "Ισοφάρισε",
   "averageScore": "Μέσος όρος σκορ",
   "totalPointsScored": "Συνολικοί πόντοι",
-  "noMatchHistoryAvailable": "Δεν υπάρχει ιστορικό παρτίδων."
+  "noMatchHistoryAvailable": "Δεν υπάρχει ιστορικό παρτίδων.",
+  "whoPlaysFirst": "Ποιος παίζει πρώτος?",
+  "letsPlay": "Ας παίξουμε!"
 }

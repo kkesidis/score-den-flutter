@@ -33,9 +33,8 @@ class PlayerSessionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final playerName = player.playerName ?? l10n.genericPlayerName;
-
-    final inheritedColor = player.playerColorValue ?? game.colorValue;
-    final Color highlightColor = inheritedColor != null ? Color(inheritedColor) : AppTheme.palette.first;
+    final Color highlightColor = player.getColor(game);
+    final playsFirst = player.playsFirst ?? false;
 
     const double scoreSize = 50;
 
@@ -59,6 +58,13 @@ class PlayerSessionCard extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
+
+                if (playsFirst)
+                  const Icon(
+                    Icons.flag_outlined,
+                    color: Colors.amber,
+                    size: 18,
+                  ),
                 
                 if (isWinner)
                   const Icon(

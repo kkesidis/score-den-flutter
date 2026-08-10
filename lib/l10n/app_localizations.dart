@@ -733,6 +733,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No match history available.'**
   String get noMatchHistoryAvailable;
+
+  /// No description provided for @whoPlaysFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Who plays first?'**
+  String get whoPlaysFirst;
+
+  /// No description provided for @letsPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Let\'s play!'**
+  String get letsPlay;
 }
 
 class _AppLocalizationsDelegate

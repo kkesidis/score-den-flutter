@@ -1,4 +1,6 @@
 import 'package:isar/isar.dart';
+import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 part 'board_game.g.dart';
 
@@ -34,10 +36,20 @@ class PlayerSession {
   // Store a specific player's color for this session
   int? playerColorValue;
 
+  // Flag that determines the player that goes first
+  bool? playsFirst;
+
   List<ScoreEntry> scores = [];
 
   int get totalScore {
     return scores.fold(0, (sum, entry) => sum + (entry.value ?? 0)); 
+  }
+
+  Color getColor(BoardGame game) {
+    final inheritedColor = playerColorValue ?? game.colorValue;
+    return inheritedColor != null 
+      ? Color(inheritedColor) 
+      : AppTheme.palette.first;
   }
 }
 

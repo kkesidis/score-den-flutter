@@ -1413,14 +1413,19 @@ const PlayerSessionSchema = Schema(
       name: r'playerName',
       type: IsarType.string,
     ),
-    r'scores': PropertySchema(
+    r'playsFirst': PropertySchema(
       id: 3,
+      name: r'playsFirst',
+      type: IsarType.bool,
+    ),
+    r'scores': PropertySchema(
+      id: 4,
       name: r'scores',
       type: IsarType.objectList,
       target: r'ScoreEntry',
     ),
     r'totalScore': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'totalScore',
       type: IsarType.long,
     )
@@ -1463,13 +1468,14 @@ void _playerSessionSerialize(
   writer.writeLong(offsets[0], object.playerColorValue);
   writer.writeLong(offsets[1], object.playerId);
   writer.writeString(offsets[2], object.playerName);
+  writer.writeBool(offsets[3], object.playsFirst);
   writer.writeObjectList<ScoreEntry>(
-    offsets[3],
+    offsets[4],
     allOffsets,
     ScoreEntrySchema.serialize,
     object.scores,
   );
-  writer.writeLong(offsets[4], object.totalScore);
+  writer.writeLong(offsets[5], object.totalScore);
 }
 
 PlayerSession _playerSessionDeserialize(
@@ -1482,8 +1488,9 @@ PlayerSession _playerSessionDeserialize(
   object.playerColorValue = reader.readLongOrNull(offsets[0]);
   object.playerId = reader.readLongOrNull(offsets[1]);
   object.playerName = reader.readStringOrNull(offsets[2]);
+  object.playsFirst = reader.readBoolOrNull(offsets[3]);
   object.scores = reader.readObjectList<ScoreEntry>(
-        offsets[3],
+        offsets[4],
         ScoreEntrySchema.deserialize,
         allOffsets,
         ScoreEntry(),
@@ -1506,6 +1513,8 @@ P _playerSessionDeserializeProp<P>(
     case 2:
       return (reader.readStringOrNull(offset)) as P;
     case 3:
+      return (reader.readBoolOrNull(offset)) as P;
+    case 4:
       return (reader.readObjectList<ScoreEntry>(
             offset,
             ScoreEntrySchema.deserialize,
@@ -1513,7 +1522,7 @@ P _playerSessionDeserializeProp<P>(
             ScoreEntry(),
           ) ??
           []) as P;
-    case 4:
+    case 5:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1820,6 +1829,34 @@ extension PlayerSessionQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'playerName',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playsFirstIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'playsFirst',
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playsFirstIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'playsFirst',
+      ));
+    });
+  }
+
+  QueryBuilder<PlayerSession, PlayerSession, QAfterFilterCondition>
+      playsFirstEqualTo(bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'playsFirst',
+        value: value,
       ));
     });
   }
