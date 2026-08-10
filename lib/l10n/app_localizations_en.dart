@@ -349,4 +349,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noMatchHistoryAvailable => 'No match history available.';
+
+  @override
+  String get whoPlaysFirst => 'Who plays first?';
+
+  @override
+  String get letsPlay => 'Let\'s play!';
 }

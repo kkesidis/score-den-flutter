@@ -9,6 +9,7 @@ import '../widgets/score_form.dart';
 import '../widgets/base_layout.dart';
 import '../widgets/empty_state_card.dart';
 import '../widgets/player_quick_selection.dart';
+import '../widgets/who_plays_first.dart';
 
 class PlayerScoresScreen extends StatefulWidget {
   final int gameId;
@@ -446,6 +447,46 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
     );
   }
 
+  void _pickFirstPlayer(List<PlayerSession> currentPlayers) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: WhoPlaysFirst(
+              game: _game!,
+              players: currentPlayers,
+              onLetsPlay: (firstPlayerIndex) async {
+                final sessionsList = _game!.sessions.toList();
+                final currentMatchSession = sessionsList[widget.sessionIndex];
+                
+                final updatedPlayers = currentMatchSession.players.map((player) {
+                  final playerIndex = currentMatchSession.players.indexOf(player);
+                  player.playsFirst = (playerIndex == firstPlayerIndex);
+                  return player;
+                }).toList();
+
+                currentMatchSession.players = updatedPlayers;
+                sessionsList[widget.sessionIndex] = currentMatchSession;
+                _game!.sessions = sessionsList;
+
+                // TODO: Figure out why this is not working. I can confirm that the player is getting the correct
+                // boolean value, but when we're loading the data again, it gets lost?
+                await isar.writeTxn(() async {
+                  await isar.boardGames.put(_game!);
+                });
+
+                if (context.mounted) Navigator.pop(context);
+              },
+            ),
+          ),
+        );
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_game == null) {
@@ -495,9 +536,21 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
             onSelected: (String value) {
               if (value == 'rematch') {
                 _startRematch(basePlayers);
-              } 
+              } else if (value == 'whoPlaysFirst') {
+                _pickFirstPlayer(basePlayers);
+              }
             },
             itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'whoPlaysFirst',
+                child: Row(
+                  children: [
+                    const Icon(Icons.flag_outlined, size: 20),
+                    const SizedBox(width: 8),
+                    Text(AppLocalizations.of(context)!.whoPlaysFirst),
+                  ],
+                ),
+              ),
               PopupMenuItem<String>(
                 value: 'rematch',
                 child: Row(

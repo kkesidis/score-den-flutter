@@ -353,4 +353,10 @@ class AppLocalizationsEl extends AppLocalizations {
 
   @override
   String get noMatchHistoryAvailable => 'Δεν υπάρχει ιστορικό παρτίδων.';
+
+  @override
+  String get whoPlaysFirst => 'Ποιος παίζει πρώτος?';
+
+  @override
+  String get letsPlay => 'Ας παίξουμε!';
 }

@@ -105,5 +105,7 @@
   "tied": "Tied",
   "averageScore": "Average Score",
   "totalPointsScored": "Total Points Scored",
-  "noMatchHistoryAvailable": "No match history available."
+  "noMatchHistoryAvailable": "No match history available.",
+  "whoPlaysFirst": "Who plays first?",
+  "letsPlay": "Let's play!"
 }
