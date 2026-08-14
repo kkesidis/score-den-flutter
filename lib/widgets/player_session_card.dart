@@ -51,11 +51,15 @@ class PlayerSessionCard extends StatelessWidget {
             title: Row(
               spacing: 8.0,
               children: [
-                Text(
-                  playerName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
+                Flexible(
+                  child: Text(
+                    playerName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
 
