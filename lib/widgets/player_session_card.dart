@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../models/board_game.dart';
-import '../theme/app_theme.dart';
 import './stylized_card.dart';
 import '../l10n/app_localizations.dart';
 import './score_form.dart';
