@@ -409,6 +409,7 @@ class _PlayerScoresScreenState extends State<PlayerScoresScreen> {
       return PlayerSession()
         ..playerName = existingPlayer.playerName
         ..playerColorValue = existingPlayer.playerColorValue
+        ..playerId = existingPlayer.playerId
         ..scores = [];
     }).toList();
 
