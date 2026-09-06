@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 import '../main.dart';
 import '../models/board_game.dart';
 import '../l10n/app_localizations.dart';

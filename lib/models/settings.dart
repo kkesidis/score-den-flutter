@@ -1,4 +1,4 @@
-import 'package:isar/isar.dart';
+import 'package:isar_community/isar.dart';
 
 // This tells Isar to generate code for this collection
 part 'settings.g.dart';
